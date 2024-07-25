@@ -1,8 +1,11 @@
 import FilterableProductTable from "./components/FilterableProductTable";
-import data from "../data";
 
 function App() {
-  return <FilterableProductTable products={data} />;
+  return (
+    <>
+      <FilterableProductTable />
+    </>
+  );
 }
 
 export default App;
