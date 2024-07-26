@@ -14,7 +14,7 @@ const reducer = (state, action) => {
     case ACTIONS.FETCH_LOADING:
       return { ...state, loading: true };
     case ACTIONS.FETCH_SUCCESS:
-      return { ...state, loading: false, products: action.payload };
+      return { error: "", loading: false, products: action.payload };
     case ACTIONS.FETCH_ERROR:
       return { products: [], loading: false, error: action.payload };
     default:
@@ -38,14 +38,17 @@ export default function FilterableProductTable() {
   const readProducts = async () => {
     try {
       dispatch({ type: ACTIONS.FETCH_LOADING });
+      // setLoading(true);
       const res = await axios.get(
         `http://localhost:4000/products?name_like=${filterText}&stocked_like=${
           isStock || ""
         }`
       );
       dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: res.data });
+      // setProducts(res.data);
     } catch (e) {
       console.log(e.message);
+      // setError(e.message);
       dispatch({ type: ACTIONS.FETCH_ERROR, payload: e.message });
     }
   };
